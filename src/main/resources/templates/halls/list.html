@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="ru">
+<head>
+    <title>Залы</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" type="text/css" href="../../static/css/db.css" th:href="@{/css/db.css}">
+</head>
+<body>
+    <div id="main-wrapper">
+        <div id="content">
+            <h1 class="centered">Залы</h1>
+
+            <a th:href="@{/halls/add}">
+                <button type="button" class="button-add">Добавить</button>
+            </a>
+            <div class="spacer"></div>
+            <table class="view" th:if="${allHalls.iterator().hasNext()}">
+                <tr>
+                    <th>Кинотеатр</th>
+                    <th>ID</th>
+                    <th>Название</th>
+                    <th>Формат</th>
+                    <th>Рядов</th>
+                    <th>Мест в ряду</th>
+                    <th>Изменить</th>
+                    <th>Удалить</th>
+                </tr>
+                <tr th:each="hall : ${allHalls}">
+                    <td th:text="${hall.cinema.name}"></td>
+                    <td th:text="${hall.id}"></td>
+                    <td th:text="${hall.name}"></td>
+                    <td th:text="${hall.format}"></td>
+                    <td th:text="${hall.rowNumber}"></td>
+                    <td th:text="${hall.placeNumber}"></td>
+                    <td><a th:href="@{/halls/edit(id = ${hall.id})}"><button class="button-action">Изменить</button></a></td>
+                    <td><a th:href="@{/halls/delete(id = ${hall.id})}"><button class="button-delete">Удалить</button></a></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

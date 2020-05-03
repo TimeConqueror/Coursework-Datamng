@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="ru">
+<head>
+    <title th:if="${cinema.name == null}">
+        Добавить кинотеатр
+    </title>
+    <title th:unless="${cinema.name == null}">
+        Изменить кинотеатр
+    </title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" type="text/css" href="../../static/css/db.css" th:href="@{/css/db.css}">
+</head>
+<body>
+<div id="main-wrapper">
+    <div id="content">
+        <div th:object="${cinema}">
+            <h1 class="centered" th:if="*{name==null}">Добавить кинотеатр</h1>
+            <h1 class="centered" th:if="*{name!=null}">Изменить кинотеатр</h1>
+        </div>
+
+        <div id="editor" class="centered">
+            <a th:href="@{/cinemas}">
+                <button type="button" class="button-action">Вернуться к списку кинотеатров</button>
+            </a>
+
+            <form action="#" th:action="@{/cinemas/save}" th:object="${cinema}" method="post">
+                <table class="full-width" style="text-align: left">
+                    <tr th:if="*{name != null}">
+                        <td><label>ID</label></td>
+                        <td><input type="text" th:field="*{id}" readonly></td>
+                    </tr>
+                    <tr>
+                        <td><label>Название</label></td>
+                        <td><input type="text" th:field="*{name}"></td>
+                    </tr>
+                    <tr>
+                        <td><label>Телефон</label></td>
+                        <td><input type="text" th:field="*{tel}"></td>
+                    </tr>
+                    <tr>
+                        <td><label>Адрес</label></td>
+                        <td><input type="text" th:field="*{address}"></td>
+                    </tr>
+                    <tr>
+                        <td><label>Веб-сайт</label></td>
+                        <td><input type="text" th:field="*{website}"></td>
+                    </tr>
+                </table>
+                <div th:object="${cinema}">
+                    <button th:if="*{name == null}" type="submit" class="button-add">Добавить</button>
+                    <button th:if="*{name != null}" type="submit" class="button-add">Изменить</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

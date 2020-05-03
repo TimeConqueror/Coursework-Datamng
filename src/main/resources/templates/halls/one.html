@@ -1,0 +1,70 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="ru">
+<head>
+    <title th:if="${hall.name == null}">
+        Добавить зал
+    </title>
+    <title th:unless="${hall.name == null}">
+        Изменить зал
+    </title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" type="text/css" href="../../static/css/db.css" th:href="@{/css/db.css}">
+</head>
+<body>
+<div id="main-wrapper">
+    <div id="content">
+        <div th:object="${hall}">
+            <h1 class="centered" th:if="*{name==null}">Добавить зал</h1>
+            <h1 class="centered" th:if="*{name!=null}">Изменить зал</h1>
+        </div>
+
+        <div id="editor" class="centered">
+            <a th:href="@{/halls}">
+                <button type="button" class="button-action">Вернуться к списку залов</button>
+            </a>
+
+            <form action="#" th:action="@{/halls/save}" th:object="${hall}" method="post">
+                <table class="full-width" style="text-align: left">
+                    <tr th:if="*{name != null}">
+                        <td><label>ID</label></td>
+                        <td><input type="text" th:field="*{id}" readonly></td>
+                    </tr>
+                    <tr>
+                        <td><label>Кинотеатр</label></td>
+                        <td>
+                            <select name="cinema" th:field="*{cinema}" style="width: 100%">
+                                <option th:each="cinema : ${allCinemas}"
+                                        th:value="${cinema.id}"
+                                        th:text="${cinema.name}"></option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label>Название</label></td>
+                        <td><input type="text" th:field="*{name}"></td>
+                    </tr>
+                    <tr>
+                        <td><label>Формат</label></td>
+                        <td><input type="text" th:field="*{format}"></td>
+                    </tr>
+                    <tr>
+                        <td><label>Рядов</label></td>
+                        <td><input type="text" th:field="*{rowNumber}"></td>
+                    </tr>
+                    <tr>
+                        <td><label>Мест в ряду</label></td>
+                        <td><input type="text" th:field="*{placeNumber}"></td>
+                    </tr>
+                </table>
+                <div th:object="${hall}">
+                    <button th:if="*{name == null}" type="submit" class="button-add">Добавить</button>
+                    <button th:if="*{name != null}" type="submit" class="button-add">Изменить</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="ru">
+<head>
+    <title>Кинотеатры</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" type="text/css" href="../../static/css/db.css" th:href="@{/css/db.css}">
+</head>
+<body>
+    <div id="main-wrapper">
+        <div id="content">
+            <h1 class="centered">Кинотеатры</h1>
+
+            <a th:href="@{/cinemas/add}">
+                <button type="button" class="button-add">Добавить</button>
+            </a>
+            <div class="spacer"></div>
+            <table class="view" th:if="${allCinemas} != null">
+                <tr>
+                    <th>ID</th>
+                    <th>Название</th>
+                    <th>Телефон</th>
+                    <th>Адрес</th>
+                    <th>Веб-сайт</th>
+                    <th>Изменить</th>
+                    <th>Удалить</th>
+                </tr>
+                <tr th:each="cinema : ${allCinemas}">
+                    <td th:text="${cinema.id}"></td>
+                    <td th:text="${cinema.name}"></td>
+                    <td th:text="${cinema.tel}"></td>
+                    <td th:text="${cinema.address}"></td>
+                    <td th:text="${cinema.website}"></td>
+                    <td><a th:href="@{/cinemas/edit(id = ${cinema.getId()})}"><button class="button-action">Изменить</button></a></td>
+                    <td><a th:href="@{/cinemas/delete(id = ${cinema.getId()})}"><button class="button-delete">Удалить</button></a></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
