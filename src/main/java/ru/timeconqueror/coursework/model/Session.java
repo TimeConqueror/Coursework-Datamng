@@ -98,16 +98,11 @@ public class Session {
         if (this == o) return true;
         if (!(o instanceof Session)) return false;
         Session session = (Session) o;
-        return id.equals(session.id) &&
-                format.equals(session.format) &&
-                filmID.equals(session.filmID) &&
-                hallID.equals(session.hallID) &&
-                price.equals(session.price) &&
-                time.equals(session.time);
+        return id.equals(session.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, format, filmID, hallID, price, time);
+        return Objects.hash(id);
     }
 }

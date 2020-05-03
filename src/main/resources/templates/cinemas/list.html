@@ -32,8 +32,12 @@
                     <td th:text="${cinema.tel}"></td>
                     <td th:text="${cinema.address}"></td>
                     <td th:text="${cinema.website}"></td>
-                    <td><a th:href="@{/cinemas/edit(id = ${cinema.getId()})}"><button class="button-action">Изменить</button></a></td>
-                    <td><a th:href="@{/cinemas/delete(id = ${cinema.getId()})}"><button class="button-delete">Удалить</button></a></td>
+                    <td><a th:href="@{/cinemas/edit(id = ${cinema.id})}">
+                        <button class="button-action">Изменить</button>
+                    </a></td>
+                    <td><a th:href="@{/cinemas/delete(id = ${cinema.id})}">
+                        <button class="button-delete">Удалить</button>
+                    </a></td>
                 </tr>
             </table>
         </div>

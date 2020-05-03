@@ -4,7 +4,6 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.Objects;
-import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -84,15 +83,11 @@ public class Cinema {
         if (this == o) return true;
         if (!(o instanceof Cinema)) return false;
         Cinema cinema = (Cinema) o;
-        return id.equals(cinema.id) &&
-                name.equals(cinema.name) &&
-                tel.equals(cinema.tel) &&
-                address.equals(cinema.address) &&
-                website.equals(cinema.website);
+        return id.equals(cinema.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, tel, address, website);
+        return Objects.hash(id);
     }
 }

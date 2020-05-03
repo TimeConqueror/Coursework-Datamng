@@ -96,16 +96,11 @@ public class Hall {
         if (this == o) return true;
         if (!(o instanceof Hall)) return false;
         Hall hall = (Hall) o;
-        return rowNumber == hall.rowNumber &&
-                placeNumber == hall.placeNumber &&
-                id.equals(hall.id) &&
-                format.equals(hall.format) &&
-                name.equals(hall.name) &&
-                cinema.equals(hall.cinema);
+        return id.equals(hall.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, format, name, rowNumber, placeNumber, cinema);
+        return Objects.hash(id);
     }
 }

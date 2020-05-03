@@ -5,7 +5,6 @@ import org.hibernate.annotations.Type;
 import javax.persistence.*;
 import java.util.Objects;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Entity
 @Embeddable
@@ -73,14 +72,11 @@ public class Ticket {
         if (this == o) return true;
         if (!(o instanceof Ticket)) return false;
         Ticket ticket = (Ticket) o;
-        return rowIndex == ticket.rowIndex &&
-                placeIndex == ticket.placeIndex &&
-                id.equals(ticket.id) &&
-                sessionID.equals(ticket.sessionID);
+        return id.equals(ticket.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, rowIndex, placeIndex, sessionID);
+        return Objects.hash(id);
     }
 }

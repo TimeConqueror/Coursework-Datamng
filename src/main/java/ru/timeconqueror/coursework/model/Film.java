@@ -18,14 +18,15 @@ public class Film {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "`desc`", nullable = false)
+    @Column(name = "`desc`", nullable = false, length = 1000)
     private String desc;
-
-    @Column(name = "logo_id", nullable = false)
-    private int logoID;
 
     @Column(name = "age_limit", nullable = false)
     private String ageLimit;
+
+    @Lob
+    @Column(name = "logo", nullable = false)
+    private byte[] logo;
 
     public UUID getId() {
         return id;
@@ -51,14 +52,6 @@ public class Film {
         this.desc = desc;
     }
 
-    public int getLogoID() {
-        return logoID;
-    }
-
-    public void setLogoID(int logoID) {
-        this.logoID = logoID;
-    }
-
     public String getAgeLimit() {
         return ageLimit;
     }
@@ -67,13 +60,20 @@ public class Film {
         this.ageLimit = ageLimit;
     }
 
+    public byte[] getLogo() {
+        return logo;
+    }
+
+    public void setLogo(byte[] logo) {
+        this.logo = logo;
+    }
+
     @Override
     public String toString() {
         return "Film{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", desc='" + desc + '\'' +
-                ", logoID=" + logoID +
                 ", ageLimit='" + ageLimit + '\'' +
                 '}';
     }
@@ -83,15 +83,11 @@ public class Film {
         if (this == o) return true;
         if (!(o instanceof Film)) return false;
         Film film = (Film) o;
-        return logoID == film.logoID &&
-                id.equals(film.id) &&
-                name.equals(film.name) &&
-                desc.equals(film.desc) &&
-                ageLimit.equals(film.ageLimit);
+        return id.equals(film.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, desc, logoID, ageLimit);
+        return Objects.hash(id);
     }
 }

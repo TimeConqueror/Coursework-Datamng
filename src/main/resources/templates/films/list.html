@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html lang="ru"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Фильмы</title>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+    <link href="../../static/css/db.css" rel="stylesheet" th:href="@{/css/db.css}" type="text/css">
+</head>
+<body>
+<div id="main-wrapper">
+    <div id="content">
+        <h1 class="centered">Фильмы</h1>
+
+        <a th:href="@{/films/add}">
+            <button class="button-add" type="button">Добавить</button>
+        </a>
+        <div class="spacer"></div>
+        <table class="view" th:if="${allFilms} != null">
+            <tr>
+                <th>ID</th>
+                <th>Название</th>
+                <th>Описание</th>
+                <th>Возрастное ограничение</th>
+                <th>Логотип</th>
+                <th>Изменить</th>
+                <th>Удалить</th>
+            </tr>
+            <tr th:each="film : ${allFilms}">
+                <td th:text="${film.id}"></td>
+                <td th:text="${film.name}"></td>
+                <td style="text-align: justify; padding: 5px;" th:text="${film.desc}"></td>
+                <td th:text="${film.ageLimit}"></td>
+                <td><img style="width: 150px;" th:src="@{films/images(id=${film.id})}"></td>
+                <td><a th:href="@{/films/edit(id = ${film.id})}">
+                    <button class="button-action">Изменить</button>
+                </a></td>
+                <td><a th:href="@{/films/delete(id = ${film.id})}">
+                    <button class="button-delete">Удалить</button>
+                </a></td>
+            </tr>
+        </table>
+    </div>
+</div>
+</body>
+</html>

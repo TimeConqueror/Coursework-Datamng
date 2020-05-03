@@ -35,7 +35,6 @@ public class HallsController {
 
     @GetMapping(value = "/add")
     public String initAdder(Model model) {
-        System.out.println("Inited adder");
         model.addAttribute("hall", new Hall());
         model.addAttribute("allCinemas", cinemaService.findAll());
         return "halls/one";
@@ -43,7 +42,6 @@ public class HallsController {
 
     @PostMapping(value = "/save")
     public String save(@ModelAttribute("hall") Hall hall) {
-        System.out.println("Save hall " + hall);
         hallService.save(hall);
         return "redirect:/halls";
     }
@@ -51,7 +49,6 @@ public class HallsController {
     @GetMapping(value = "/edit")
     public String initEditor(@RequestParam("id") UUID id, Model model) {
         Hall hall = hallService.findById(id).get();
-        System.out.println("Inited editor for " + id);
         model.addAttribute("hall", hall);//TODO add present check
         model.addAttribute("allCinemas", cinemaService.findAll());
         return "halls/one";
