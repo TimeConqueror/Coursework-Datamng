@@ -87,7 +87,7 @@ public class Hall {
                 ", name='" + name + '\'' +
                 ", rowNumber=" + rowNumber +
                 ", placeNumber='" + placeNumber + '\'' +
-                ", cinemaID=" + cinema +
+                ", cinemaID=" + cinema.getId() +
                 '}';
     }
 

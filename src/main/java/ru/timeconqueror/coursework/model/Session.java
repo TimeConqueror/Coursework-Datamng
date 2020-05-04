@@ -1,10 +1,9 @@
 package ru.timeconqueror.coursework.model;
 
 import org.hibernate.annotations.Type;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
-import java.sql.Time;
 import java.util.Date;
 import java.util.Objects;
 import java.util.UUID;
@@ -18,20 +17,26 @@ public class Session {
     @Column(name = "id", columnDefinition = "uuid", unique = true, updatable = false, nullable = false)
     private UUID id = UUID.randomUUID();
 
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @Column(name = "date", nullable = false)
-    private Date format;
+    private Date date;
 
-    @Column(name = "film_id", nullable = false)
-    private UUID filmID;
-
-    @Column(name = "hall_id", nullable = false)
-    private UUID hallID;
-
-    @Column(name = "price", nullable = false)
-    private BigDecimal price;
-
+    @Temporal(TemporalType.TIME)
+    @DateTimeFormat(pattern = "HH:mm")
     @Column(name = "time", nullable = false)
-    private Time time;
+    private Date time;
+
+    @ManyToOne
+    @JoinColumn(name = "film_id", nullable = false)
+    private Film film;
+
+    @ManyToOne
+    @JoinColumn(name = "hall_id", nullable = false)
+    private Hall hall;
+
+    @Column(name = "price", nullable = false, length = 7)
+    private String price;
 
     public UUID getId() {
         return id;
@@ -41,43 +46,43 @@ public class Session {
         this.id = id;
     }
 
-    public Date getFormat() {
-        return format;
+    public Date getDate() {
+        return date;
     }
 
-    public void setFormat(Date format) {
-        this.format = format;
+    public void setDate(Date format) {
+        this.date = format;
     }
 
-    public UUID getFilmID() {
-        return filmID;
+    public Film getFilm() {
+        return film;
     }
 
-    public void setFilmID(UUID filmID) {
-        this.filmID = filmID;
+    public void setFilm(Film film) {
+        this.film = film;
     }
 
-    public UUID getHallID() {
-        return hallID;
+    public Hall getHall() {
+        return hall;
     }
 
-    public void setHallID(UUID hallID) {
-        this.hallID = hallID;
+    public void setHall(Hall hall) {
+        this.hall = hall;
     }
 
-    public BigDecimal getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(BigDecimal price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 
-    public Time getTime() {
+    public Date getTime() {
         return time;
     }
 
-    public void setTime(Time time) {
+    public void setTime(Date time) {
         this.time = time;
     }
 
@@ -85,9 +90,9 @@ public class Session {
     public String toString() {
         return "Session{" +
                 "id=" + id +
-                ", format=" + format +
-                ", filmID=" + filmID +
-                ", hallID=" + hallID +
+                ", format=" + date +
+                ", filmID=" + film.getId() +
+                ", hallID=" + hall.getId() +
                 ", price=" + price +
                 ", time=" + time +
                 '}';

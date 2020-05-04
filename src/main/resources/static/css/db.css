@@ -20,6 +20,10 @@
     margin-bottom: 10px;
 }
 
+a {
+    text-decoration: none;
+}
+
 button {
     font-weight: 700;
     color: white;

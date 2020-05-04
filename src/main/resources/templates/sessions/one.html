@@ -1,0 +1,81 @@
+<!DOCTYPE HTML>
+<html lang="ru"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:if="${eSession.film == null}">
+        Добавить сеанс
+    </title>
+    <title th:unless="${eSession.film == null}">
+        Изменить сеанс
+    </title>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+    <link href="../../static/css/db.css" rel="stylesheet" th:href="@{/css/db.css}" type="text/css">
+    <style>
+        td * {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+<div id="main-wrapper">
+    <div id="content">
+        <div th:object="${eSession}">
+            <h1 class="centered" th:if="*{film==null}">Добавить сеанс</h1>
+            <h1 class="centered" th:if="*{film!=null}">Изменить сеанс</h1>
+        </div>
+
+        <div class="centered" id="editor">
+            <a th:href="@{/sessions}">
+                <button class="button-action" type="button">Вернуться к списку сеансов</button>
+            </a>
+
+            <form action="#" method="post" th:action="@{/sessions/save}" th:object="${eSession}">
+                <table class="full-width" style="text-align: left">
+                    <tr th:if="*{film != null}">
+                        <td><label>ID</label></td>
+                        <td><input readonly th:field="*{id}" type="text"></td>
+                    </tr>
+                    <tr>
+                        <td><label>Зал</label></td>
+                        <td>
+                            <select name="hall" style="width: 100%" th:field="*{hall}">>
+                                <option th:each="hall : ${allHalls}"
+                                        th:text="${hall.cinema.name + ': ' + hall.name}"
+                                        th:value="${hall.id}"></option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label>Фильм</label></td>
+                        <td>
+                            <select name="film" style="width: 100%" th:field="*{film}">
+                                <option th:each="film : ${allFilms}"
+                                        th:text="${film.name}"
+                                        th:value="${film.id}"></option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label>Дата</label></td>
+                        <td><input th:field="*{date}" type="date"></td>
+                    </tr>
+                    <tr>
+                        <td><label>Время</label></td>
+                        <td><input th:field="*{time}" type="time"></td>
+                    </tr>
+                    <tr>
+                        <td><label>Цена</label></td>
+                        <td><input th:field="*{price}" type="text"></td>
+                    </tr>
+                </table>
+                <div th:object="${eSession}">
+                    <button class="button-add" th:if="*{film == null}" type="submit">Добавить</button>
+                    <button class="button-add" th:if="*{film != null}" type="submit">Изменить</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

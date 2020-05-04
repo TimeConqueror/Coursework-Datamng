@@ -1,10 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Hello world!</title>
+    <title>Меню</title>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+    <link href="../../static/css/db.css" rel="stylesheet" th:href="@{/css/db.css}" type="text/css">
 </head>
 <body>
-Kek!
+<div id="main-wrapper">
+    <div id="content">
+        <div class="centered">
+            <h1 class>Главное меню</h1>
+
+            <h3 class>Базы данных</h3>
+            <a th:href="@{/cinemas}">
+                <button class="button-action" type="button">Кинотеатры</button>
+            </a>
+            <a th:href="@{/halls}">
+                <button class="button-action" type="button">Залы</button>
+            </a>
+            <a th:href="@{/films}">
+                <button class="button-action" type="button">Фильмы</button>
+            </a>
+            <a th:href="@{/sessions}">
+                <button class="button-action" type="button">Сеансы</button>
+            </a>
+        </div>
+    </div>
+</div>
 </body>
 </html>
