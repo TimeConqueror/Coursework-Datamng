@@ -1,8 +1,12 @@
 package ru.timeconqueror.coursework.model;
 
 import org.hibernate.annotations.Type;
+import ru.timeconqueror.coursework.util.MessageConstants;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -15,15 +19,20 @@ public class Cinema {
     @Column(name = "id", columnDefinition = "uuid", unique = true, updatable = false)
     private UUID id = UUID.randomUUID();
 
+    @NotNull
+    @Size(min = 3, max = 20, message = MessageConstants.WRONG_SIZE_MSG)
     @Column(name = "name", nullable = false)
     private String name;
 
+    @Pattern(message = "Телефон должен быть таким: +#(###)###-##-##", regexp = "\\+7\\(\\d{3}\\)\\d{3}-\\d{2}-\\d{2}")
     @Column(name = "tel", nullable = false)
     private String tel;
 
+    @Size(min = 3, max = 255, message = MessageConstants.WRONG_SIZE_MSG)
     @Column(name = "address", nullable = false)
     private String address;
 
+    @Pattern(message = "Неверный сайт", regexp = "^(https?:\\/\\/)?(www\\.)?([a-zA-Z0-9]+(-?[a-zA-Z0-9])*\\.)+[\\w]{2,}(\\/\\S*)?$")
     @Column(name = "website", nullable = false)
     private String website;
 

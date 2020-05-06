@@ -3,10 +3,12 @@ package ru.timeconqueror.coursework.client;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.timeconqueror.coursework.model.Cinema;
 import ru.timeconqueror.coursework.service.CinemaService;
 
+import javax.validation.Valid;
 import java.util.UUID;
 
 @Controller
@@ -33,7 +35,11 @@ public class CinemasController {
     }
 
     @PostMapping(value = "/save")
-    public String save(@ModelAttribute("cinema") Cinema c) {
+    public String save(@ModelAttribute("cinema") @Valid Cinema c, BindingResult result) {
+        if (result.hasErrors()) {
+            return "cinemas/one";
+        }
+
         cinemaService.save(c);
         return "redirect:/cinemas";
     }

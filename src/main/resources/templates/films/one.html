@@ -39,14 +39,17 @@
                     <tr>
                         <th><label>Название</label></th>
                         <td><input class="full-width" th:field="*{name}" type="text"></td>
+                        <td th:errors="*{name}" th:if="${#fields.hasErrors('name')}"></td>
                     </tr>
                     <tr>
                         <th><label>Описание</label></th>
                         <td><textarea style="width: 99%; height: 200px;" th:field="*{desc}"></textarea></td>
+                        <td th:errors="*{desc}" th:if="${#fields.hasErrors('desc')}"></td>
                     </tr>
                     <tr>
                         <th><label>Возрастное ограничение</label></th>
                         <td><input th:field="*{ageLimit}" type="text"></td>
+                        <td th:errors="*{ageLimit}" th:if="${#fields.hasErrors('ageLimit')}"></td>
                     </tr>
                     <tr>
                         <th><label>Логотип</label></th>

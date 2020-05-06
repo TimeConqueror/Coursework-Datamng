@@ -34,18 +34,22 @@
                     <tr>
                         <td><label>Название</label></td>
                         <td><input type="text" th:field="*{name}"></td>
+                        <td th:errors="*{name}" th:if="${#fields.hasErrors('name')}"></td>
                     </tr>
                     <tr>
                         <td><label>Телефон</label></td>
                         <td><input type="text" th:field="*{tel}"></td>
+                        <td th:errors="*{tel}" th:if="${#fields.hasErrors('tel')}"></td>
                     </tr>
                     <tr>
                         <td><label>Адрес</label></td>
                         <td><input type="text" th:field="*{address}"></td>
+                        <td th:errors="*{address}" th:if="${#fields.hasErrors('address')}"></td>
                     </tr>
                     <tr>
                         <td><label>Веб-сайт</label></td>
                         <td><input type="text" th:field="*{website}"></td>
+                        <td th:errors="*{website}" th:if="${#fields.hasErrors('website')}"></td>
                     </tr>
                 </table>
                 <div th:object="${cinema}">

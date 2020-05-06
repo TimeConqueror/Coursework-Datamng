@@ -1,8 +1,12 @@
 package ru.timeconqueror.coursework.model;
 
 import org.hibernate.annotations.Type;
+import ru.timeconqueror.coursework.util.MessageConstants;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -15,12 +19,18 @@ public class Film {
     @Column(name = "id", columnDefinition = "uuid", unique = true, updatable = false)
     private UUID id = UUID.randomUUID();
 
+    @NotNull
+    @Size(min = 3, max = 255, message = MessageConstants.WRONG_SIZE_MSG)
     @Column(name = "name", nullable = false)
     private String name;
 
+    @NotNull
+    @Size(max = 1000, message = MessageConstants.WRONG_SIZE_MSG)
     @Column(name = "`desc`", nullable = false, length = 1000)
     private String desc;
 
+    @NotNull
+    @Pattern(regexp = "^\\d{1,2}\\+$", message = "Требуемый формат: #+ или ##+")
     @Column(name = "age_limit", nullable = false)
     private String ageLimit;
 

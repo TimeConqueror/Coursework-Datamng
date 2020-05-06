@@ -4,12 +4,14 @@ import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.timeconqueror.coursework.model.Film;
 import ru.timeconqueror.coursework.service.FilmService;
 import ru.timeconqueror.coursework.util.FileContainer;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -40,7 +42,10 @@ public class FilmsController {
     }
 
     @PostMapping(value = "/save")
-    public String save(@ModelAttribute("film") Film film, @ModelAttribute("fileContainer") FileContainer fileContainer) throws IOException {
+    public String save(@ModelAttribute("film") @Valid Film film, BindingResult result, @ModelAttribute("fileContainer") FileContainer fileContainer) throws IOException {
+        if (result.hasErrors()) {
+            return "films/one";
+        }
 
         if (fileContainer.getFileData().getSize() > 0) {
             film.setLogo(fileContainer.getFileData().getBytes());
