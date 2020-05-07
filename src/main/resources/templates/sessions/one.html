@@ -45,6 +45,7 @@
                                         th:value="${hall.id}"></option>
                             </select>
                         </td>
+                        <td th:errors="*{hall}" th:if="${#fields.hasErrors('hall')}"></td>
                     </tr>
                     <tr>
                         <td><label>Фильм</label></td>
@@ -55,18 +56,22 @@
                                         th:value="${film.id}"></option>
                             </select>
                         </td>
+                        <td th:errors="*{film}" th:if="${#fields.hasErrors('film')}"></td>
                     </tr>
                     <tr>
                         <td><label>Дата</label></td>
                         <td><input th:field="*{date}" type="date"></td>
+                        <td th:cellpadding="5" th:errors="*{date}" th:if="${#fields.hasErrors('date')}"></td>
                     </tr>
                     <tr>
                         <td><label>Время</label></td>
                         <td><input th:field="*{time}" type="time"></td>
+                        <td th:cellpadding="5" th:errors="*{time}" th:if="${#fields.hasErrors('time')}"></td>
                     </tr>
                     <tr>
                         <td><label>Цена</label></td>
                         <td><input th:field="*{price}" type="text"></td>
+                        <td th:errors="*{price}" th:if="${#fields.hasErrors('price')}"></td>
                     </tr>
                 </table>
                 <div th:object="${eSession}">

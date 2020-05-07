@@ -4,6 +4,9 @@ import org.hibernate.annotations.Type;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.FutureOrPresent;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.util.Date;
 import java.util.Objects;
 import java.util.UUID;
@@ -17,24 +20,30 @@ public class Session {
     @Column(name = "id", columnDefinition = "uuid", unique = true, updatable = false, nullable = false)
     private UUID id = UUID.randomUUID();
 
+    @NotNull
+    @FutureOrPresent
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @Column(name = "date", nullable = false)
     private Date date;
 
+    @NotNull
     @Temporal(TemporalType.TIME)
     @DateTimeFormat(pattern = "HH:mm")
     @Column(name = "time", nullable = false)
     private Date time;
 
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "film_id", nullable = false)
     private Film film;
 
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "hall_id", nullable = false)
     private Hall hall;
 
+    @Pattern(regexp = "^(\\d+|\\d+[,.]\\d{2})$", message = "должно быть целочисленным числом или числом с двумя числами после запятой")
     @Column(name = "price", nullable = false, length = 7)
     private String price;
 
