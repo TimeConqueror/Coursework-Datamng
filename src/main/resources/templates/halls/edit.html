@@ -1,59 +1,63 @@
 <!DOCTYPE HTML>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
-      lang="ru">
+<html lang="ru"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>
-        Добавить зал
+        Изменить зал
     </title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <link rel="stylesheet" type="text/css" href="../../static/css/db.css" th:href="@{/css/db.css}">
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+    <link href="../../static/css/db.css" rel="stylesheet" th:href="@{/css/db.css}" type="text/css">
 </head>
 <body>
 <div id="main-wrapper">
     <div id="content">
-        <h1 class="centered">Добавить зал</h1>
+        <h1 class="centered">Изменить зал</h1>
 
-        <div id="editor" class="centered">
+        <div class="centered" id="editor">
             <a th:href="@{/halls}">
-                <button type="button" class="button-action">Вернуться к списку залов</button>
+                <button class="button-action" type="button">Вернуться к списку залов</button>
             </a>
 
-            <form action="#" method="post" th:action="@{/halls/add}" th:object="${hall}">
+            <form action="#" method="post" th:action="@{/halls/edit}" th:object="${hall}">
                 <table class="full-width" style="text-align: left">
+                    <tr>
+                        <td><label>ID</label></td>
+                        <td><input readonly th:field="*{id}" type="text"></td>
+                    </tr>
                     <tr>
                         <td><label>Кинотеатр</label></td>
                         <td>
-                            <select name="cinema" th:field="*{cinema}" style="width: 100%">
+                            <select name="cinema" style="width: 100%" th:field="*{cinema}">
                                 <option th:each="cinema : ${allCinemas}"
-                                        th:value="${cinema.id}"
-                                        th:text="${cinema.name}"></option>
+                                        th:text="${cinema.name}"
+                                        th:value="${cinema.id}"></option>
                             </select>
                         </td>
                         <td th:errors="*{cinema}" th:if="${#fields.hasErrors('cinema')}"></td>
                     </tr>
                     <tr>
                         <td><label>Название</label></td>
-                        <td><input type="text" th:field="*{name}"></td>
+                        <td><input th:field="*{name}" type="text"></td>
                         <td th:errors="*{name}" th:if="${#fields.hasErrors('name')}"></td>
                     </tr>
                     <tr>
                         <td><label>Формат</label></td>
-                        <td><input type="text" th:field="*{format}"></td>
+                        <td><input th:field="*{format}" type="text"></td>
                         <td th:errors="*{format}" th:if="${#fields.hasErrors('format')}"></td>
                     </tr>
                     <tr>
                         <td><label>Рядов</label></td>
-                        <td><input type="text" th:field="*{rowNumber}"></td>
+                        <td><input th:field="*{rowNumber}" type="text"></td>
                         <td th:errors="*{rowNumber}" th:if="${#fields.hasErrors('rowNumber')}"></td>
                     </tr>
                     <tr>
                         <td><label>Мест в ряду</label></td>
-                        <td><input type="text" th:field="*{placeNumber}"></td>
+                        <td><input th:field="*{placeNumber}" type="text"></td>
                         <td th:errors="*{placeNumber}" th:if="${#fields.hasErrors('placeNumber')}"></td>
                     </tr>
                 </table>
-                <button class="button-add" type="submit">Добавить</button>
+                <button class="button-add" type="submit">Изменить</button>
             </form>
         </div>
     </div>

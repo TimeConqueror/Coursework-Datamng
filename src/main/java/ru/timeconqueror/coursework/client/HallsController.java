@@ -39,15 +39,30 @@ public class HallsController {
     public String initAdder(Model model) {
         model.addAttribute("hall", new Hall());
         model.addAttribute("allCinemas", cinemaService.findAll());
-        return "add";
+        return "halls/add";
     }
 
-    @PostMapping(value = "/save")
-    public String save(@ModelAttribute("hall") @Valid Hall hall, BindingResult result) {
+    @PostMapping(value = "/add")
+    public String add(@ModelAttribute("hall") @Valid Hall hall, BindingResult result, Model model) {
         if (result.hasErrors()) {
-            return "add";
+            model.addAttribute("allCinemas", cinemaService.findAll());
+            return "halls/add";
         }
 
+        return save(hall);
+    }
+
+    @PostMapping(value = "/edit")
+    public String edit(@ModelAttribute("hall") @Valid Hall hall, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            model.addAttribute("allCinemas", cinemaService.findAll());
+            return "halls/edit";
+        }
+
+        return save(hall);
+    }
+
+    public String save(Hall hall) {
         hallService.save(hall);
         return "redirect:/halls";
     }
@@ -57,7 +72,7 @@ public class HallsController {
         Hall hall = hallService.findById(id).get();
         model.addAttribute("hall", hall);//TODO add present check
         model.addAttribute("allCinemas", cinemaService.findAll());
-        return "add";
+        return "halls/edit";
     }
 
     @GetMapping("/delete")
