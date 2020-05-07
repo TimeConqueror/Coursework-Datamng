@@ -31,15 +31,28 @@ public class CinemasController {
     @GetMapping(value = "/add")
     public String initAdder(Model model) {
         model.addAttribute("cinema", new Cinema());
-        return "cinemas/one";
+        return "cinemas/add";
     }
 
-    @PostMapping(value = "/save")
-    public String save(@ModelAttribute("cinema") @Valid Cinema c, BindingResult result) {
+    @PostMapping(value = "/add")
+    public String add(@ModelAttribute("cinema") @Valid Cinema c, BindingResult result) {
         if (result.hasErrors()) {
-            return "cinemas/one";
+            return "cinemas/add";
         }
 
+        return save(c);
+    }
+
+    @PostMapping(value = "/edit")
+    public String edit(@ModelAttribute("cinema") @Valid Cinema c, BindingResult result) {
+        if (result.hasErrors()) {
+            return "cinemas/edit";
+        }
+
+        return save(c);
+    }
+
+    public String save(Cinema c) {
         cinemaService.save(c);
         return "redirect:/cinemas";
     }
@@ -48,7 +61,7 @@ public class CinemasController {
     public String initEditor(@RequestParam("id") UUID id, Model model) {
         Cinema cinema = cinemaService.findById(id).get();
         model.addAttribute("cinema", cinema);//TODO add present check
-        return "cinemas/one";
+        return "cinemas/edit";
     }
 
     @GetMapping("/delete")

@@ -24,7 +24,7 @@ public class Cinema {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Pattern(message = "Телефон должен быть таким: +#(###)###-##-##", regexp = "\\+7\\(\\d{3}\\)\\d{3}-\\d{2}-\\d{2}")
+    @Pattern(message = "телефон должен быть таким: +#(###)###-##-##", regexp = "\\+7\\(\\d{3}\\)\\d{3}-\\d{2}-\\d{2}")
     @Column(name = "tel", nullable = false)
     private String tel;
 
@@ -32,7 +32,7 @@ public class Cinema {
     @Column(name = "address", nullable = false)
     private String address;
 
-    @Pattern(message = "Неверный сайт", regexp = "^(https?:\\/\\/)?(www\\.)?([a-zA-Z0-9]+(-?[a-zA-Z0-9])*\\.)+[\\w]{2,}(\\/\\S*)?$")
+    @Pattern(message = "не является сайтом", regexp = "^(https?:\\/\\/)?(www\\.)?([a-zA-Z0-9]+(-?[a-zA-Z0-9])*\\.)+[\\w]{2,}(\\/\\S*)?$")
     @Column(name = "website", nullable = false)
     private String website;
 

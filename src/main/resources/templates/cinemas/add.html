@@ -3,34 +3,22 @@
       xmlns:th="http://www.thymeleaf.org"
       lang="ru">
 <head>
-    <title th:if="${cinema.name == null}">
-        Добавить кинотеатр
-    </title>
-    <title th:unless="${cinema.name == null}">
-        Изменить кинотеатр
-    </title>
+    <title>Добавить кинотеатр</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link rel="stylesheet" type="text/css" href="../../static/css/db.css" th:href="@{/css/db.css}">
 </head>
 <body>
 <div id="main-wrapper">
     <div id="content">
-        <div th:object="${cinema}">
-            <h1 class="centered" th:if="*{name==null}">Добавить кинотеатр</h1>
-            <h1 class="centered" th:if="*{name!=null}">Изменить кинотеатр</h1>
-        </div>
+        <h1 class="centered">Добавить кинотеатр</h1>
 
         <div id="editor" class="centered">
             <a th:href="@{/cinemas}">
                 <button type="button" class="button-action">Вернуться к списку кинотеатров</button>
             </a>
 
-            <form action="#" th:action="@{/cinemas/save}" th:object="${cinema}" method="post">
+            <form action="#" method="post" th:action="@{/cinemas/add}" th:object="${cinema}">
                 <table class="full-width" style="text-align: left">
-                    <tr th:if="*{name != null}">
-                        <td><label>ID</label></td>
-                        <td><input type="text" th:field="*{id}" readonly></td>
-                    </tr>
                     <tr>
                         <td><label>Название</label></td>
                         <td><input type="text" th:field="*{name}"></td>
@@ -52,10 +40,7 @@
                         <td th:errors="*{website}" th:if="${#fields.hasErrors('website')}"></td>
                     </tr>
                 </table>
-                <div th:object="${cinema}">
-                    <button th:if="*{name == null}" type="submit" class="button-add">Добавить</button>
-                    <button th:if="*{name != null}" type="submit" class="button-add">Изменить</button>
-                </div>
+                <button class="button-add" type="submit">Добавить</button>
             </form>
         </div>
     </div>

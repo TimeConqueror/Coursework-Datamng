@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<html lang="ru"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>
+        Изменить кинотеатр
+    </title>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+    <link href="../../static/css/db.css" rel="stylesheet" th:href="@{/css/db.css}" type="text/css">
+</head>
+<body>
+<div id="main-wrapper">
+    <div id="content">
+        <h1 class="centered">Изменить кинотеатр</h1>
+
+        <div class="centered" id="editor">
+            <a th:href="@{/cinemas}">
+                <button class="button-action" type="button">Вернуться к списку кинотеатров</button>
+            </a>
+
+            <form action="#" method="post" th:action="@{/cinemas/edit}" th:object="${cinema}">
+                <table class="full-width" style="text-align: left">
+                    <tr>
+                        <td><label>ID</label></td>
+                        <td><input readonly th:field="*{id}" type="text"></td>
+                    </tr>
+                    <tr>
+                        <td><label>Название</label></td>
+                        <td><input th:field="*{name}" type="text"></td>
+                        <td th:errors="*{name}" th:if="${#fields.hasErrors('name')}"></td>
+                    </tr>
+                    <tr>
+                        <td><label>Телефон</label></td>
+                        <td><input th:field="*{tel}" type="text"></td>
+                        <td th:errors="*{tel}" th:if="${#fields.hasErrors('tel')}"></td>
+                    </tr>
+                    <tr>
+                        <td><label>Адрес</label></td>
+                        <td><input th:field="*{address}" type="text"></td>
+                        <td th:errors="*{address}" th:if="${#fields.hasErrors('address')}"></td>
+                    </tr>
+                    <tr>
+                        <td><label>Веб-сайт</label></td>
+                        <td><input th:field="*{website}" type="text"></td>
+                        <td th:errors="*{website}" th:if="${#fields.hasErrors('website')}"></td>
+                    </tr>
+                </table>
+                <button class="button-add" type="submit">Изменить</button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
