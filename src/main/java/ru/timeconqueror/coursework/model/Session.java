@@ -21,7 +21,7 @@ public class Session {
     private UUID id = UUID.randomUUID();
 
     @NotNull
-    @FutureOrPresent
+    @FutureOrPresent(message = "дата должна быть текущей либо будущей")
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @Column(name = "date", nullable = false)

@@ -4,7 +4,7 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>
-        Добавить сеанс
+        Изменить сеанс
     </title>
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
     <link href="../../static/css/db.css" rel="stylesheet" th:href="@{/css/db.css}" type="text/css">
@@ -17,15 +17,19 @@
 <body>
 <div id="main-wrapper">
     <div id="content">
-        <h1 class="centered">Добавить сеанс</h1>
+        <h1 class="centered">Изменить сеанс</h1>
 
         <div class="centered" id="editor">
             <a th:href="@{/sessions}">
                 <button class="button-action" type="button">Вернуться к списку сеансов</button>
             </a>
 
-            <form action="#" method="post" th:action="@{/sessions/add}" th:object="${eSession}">
+            <form action="#" method="post" th:action="@{/sessions/edit}" th:object="${eSession}">
                 <table class="full-width" style="text-align: left">
+                    <tr>
+                        <td><label>ID</label></td>
+                        <td><input readonly th:field="*{id}" type="text"></td>
+                    </tr>
                     <tr>
                         <td><label>Зал</label></td>
                         <td>
@@ -64,7 +68,7 @@
                         <td th:errors="*{price}" th:if="${#fields.hasErrors('price')}"></td>
                     </tr>
                 </table>
-                <button class="button-add" type="submit">Добавить</button>
+                <button class="button-add" type="submit">Изменить</button>
             </form>
         </div>
     </div>

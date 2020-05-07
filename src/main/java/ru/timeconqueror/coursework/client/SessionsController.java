@@ -47,15 +47,32 @@ public class SessionsController {
         model.addAttribute("eSession", new Session());
         model.addAttribute("allHalls", hallService.findAll());
         model.addAttribute("allFilms", filmService.findAll());
-        return "add";
+        return "sessions/add";
     }
 
-    @PostMapping(value = "/save")
-    public String save(@ModelAttribute("eSession") @Valid Session session, BindingResult result) {
+    @PostMapping(value = "/add")
+    public String add(@ModelAttribute("eSession") @Valid Session session, BindingResult result, Model model) {
         if (result.hasErrors()) {
-            return "add";
+            model.addAttribute("allHalls", hallService.findAll());
+            model.addAttribute("allFilms", filmService.findAll());
+            return "sessions/add";
         }
 
+        return save(session);
+    }
+
+    @PostMapping(value = "/edit")
+    public String edit(@ModelAttribute("eSession") @Valid Session session, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            model.addAttribute("allHalls", hallService.findAll());
+            model.addAttribute("allFilms", filmService.findAll());
+            return "sessions/edit";
+        }
+
+        return save(session);
+    }
+
+    public String save(Session session) {
         sessionService.save(session);
         return "redirect:/sessions";
     }
@@ -66,7 +83,7 @@ public class SessionsController {
         model.addAttribute("eSession", session);//TODO add present check
         model.addAttribute("allHalls", hallService.findAll());
         model.addAttribute("allFilms", filmService.findAll());
-        return "add";
+        return "sessions/edit";
     }
 
     @GetMapping("/delete")
