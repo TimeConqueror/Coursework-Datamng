@@ -2,7 +2,7 @@ package ru.timeconqueror.coursework.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.timeconqueror.coursework.model.Film;
+import org.springframework.transaction.annotation.Transactional;
 import ru.timeconqueror.coursework.model.Session;
 import ru.timeconqueror.coursework.repo.SessionRepo;
 
@@ -27,6 +27,7 @@ public class SessionService implements SimpleService<Session> {
     public void delete(Session session) {
         repo.delete(session);
     }
+
     @Override
     public Optional<Session> findById(UUID id) {
         return repo.findById(id);
@@ -35,5 +36,15 @@ public class SessionService implements SimpleService<Session> {
     @Override
     public Iterable<Session> findAll() {
         return repo.findAll();
+    }
+
+    @Transactional
+    public void deleteAllByFilmId(UUID filmID) {
+        repo.deleteAllByFilmId(filmID);
+    }
+
+    @Transactional
+    public void deleteAllByHallId(UUID hallID) {
+        repo.deleteAllByHallId(hallID);
     }
 }

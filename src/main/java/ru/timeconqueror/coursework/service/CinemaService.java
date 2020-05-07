@@ -11,10 +11,16 @@ import java.util.UUID;
 @Service
 public class CinemaService implements SimpleService<Cinema> {
     private CinemaRepo repo;
+    private HallService hallService;
 
     @Autowired
     public void setRepo(CinemaRepo repo) {
         this.repo = repo;
+    }
+
+    @Autowired
+    public void setHallService(HallService hallService) {
+        this.hallService = hallService;
     }
 
     @Override
@@ -24,10 +30,11 @@ public class CinemaService implements SimpleService<Cinema> {
 
     @Override
     public void delete(Cinema cinema) {
+        hallService.deleteAllByCinemaId(cinema.getId());
         repo.delete(cinema);
     }
 
-    public Optional<Cinema> findById(UUID id){
+    public Optional<Cinema> findById(UUID id) {
         return repo.findById(id);
     }
 

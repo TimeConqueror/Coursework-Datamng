@@ -2,7 +2,7 @@ package ru.timeconqueror.coursework.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.timeconqueror.coursework.model.Film;
+import org.springframework.transaction.annotation.Transactional;
 import ru.timeconqueror.coursework.model.Hall;
 import ru.timeconqueror.coursework.repo.HallRepo;
 
@@ -10,14 +10,19 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class HallService implements SimpleService<Hall>{
+public class HallService implements SimpleService<Hall> {
     private HallRepo repo;
+    private SessionService sessionService;
 
     @Autowired
     public void setRepo(HallRepo repo) {
         this.repo = repo;
     }
 
+    @Autowired
+    public void setSessionService(SessionService sessionService) {
+        this.sessionService = sessionService;
+    }
 
     @Override
     public Hall save(Hall hall) {
@@ -26,6 +31,7 @@ public class HallService implements SimpleService<Hall>{
 
     @Override
     public void delete(Hall hall) {
+        sessionService.deleteAllByHallId(hall.getId());
         repo.delete(hall);
     }
 
@@ -37,5 +43,10 @@ public class HallService implements SimpleService<Hall>{
     @Override
     public Iterable<Hall> findAll() {
         return repo.findAll();
+    }
+
+    @Transactional
+    public void deleteAllByCinemaId(UUID cinemaID) {
+        repo.deleteAllByCinemaId(cinemaID);
     }
 }
