@@ -40,22 +40,27 @@
                                         th:text="${cinema.name}"></option>
                             </select>
                         </td>
+                        <td th:errors="*{cinema}" th:if="${#fields.hasErrors('cinema')}"></td>
                     </tr>
                     <tr>
                         <td><label>Название</label></td>
                         <td><input type="text" th:field="*{name}"></td>
+                        <td th:errors="*{name}" th:if="${#fields.hasErrors('name')}"></td>
                     </tr>
                     <tr>
                         <td><label>Формат</label></td>
                         <td><input type="text" th:field="*{format}"></td>
+                        <td th:errors="*{format}" th:if="${#fields.hasErrors('format')}"></td>
                     </tr>
                     <tr>
                         <td><label>Рядов</label></td>
                         <td><input type="text" th:field="*{rowNumber}"></td>
+                        <td th:errors="*{rowNumber}" th:if="${#fields.hasErrors('rowNumber')}"></td>
                     </tr>
                     <tr>
                         <td><label>Мест в ряду</label></td>
                         <td><input type="text" th:field="*{placeNumber}"></td>
+                        <td th:errors="*{placeNumber}" th:if="${#fields.hasErrors('placeNumber')}"></td>
                     </tr>
                 </table>
                 <div th:object="${hall}">

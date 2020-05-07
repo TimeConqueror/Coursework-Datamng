@@ -3,6 +3,10 @@ package ru.timeconqueror.coursework.model;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -15,18 +19,26 @@ public class Hall {
     @Column(name = "id", columnDefinition = "uuid", unique = true, updatable = false)
     private UUID id = UUID.randomUUID();
 
+    @NotNull
+    @Size(min = 2, max = 10)
     @Column(name = "format", nullable = false)
     private String format;
 
+    @Size(min = 1, max = 255)
     @Column(name = "name", nullable = false)
     private String name;
 
+    @Min(value = 1)
+    @Max(value = 100)
     @Column(name = "row_number", nullable = false)
     private int rowNumber;
 
+    @Min(value = 1)
+    @Max(value = 100)
     @Column(name = "place_number", nullable = false)
     private int placeNumber;
 
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "cinema_id", nullable = false)
     private Cinema cinema;

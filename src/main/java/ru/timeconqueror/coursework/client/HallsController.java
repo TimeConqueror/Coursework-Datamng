@@ -3,11 +3,13 @@ package ru.timeconqueror.coursework.client;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.timeconqueror.coursework.model.Hall;
 import ru.timeconqueror.coursework.service.CinemaService;
 import ru.timeconqueror.coursework.service.HallService;
 
+import javax.validation.Valid;
 import java.util.UUID;
 
 @Controller
@@ -41,7 +43,11 @@ public class HallsController {
     }
 
     @PostMapping(value = "/save")
-    public String save(@ModelAttribute("hall") Hall hall) {
+    public String save(@ModelAttribute("hall") @Valid Hall hall, BindingResult result) {
+        if (result.hasErrors()) {
+            return "halls/one";
+        }
+
         hallService.save(hall);
         return "redirect:/halls";
     }
