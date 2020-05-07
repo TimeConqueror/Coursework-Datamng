@@ -11,18 +11,10 @@
 <div id="main-wrapper">
     <div id="content">
         <h1 class="centered">Сеансы</h1>
+        <h3 class="centered" th:text="${title}"></h3>
 
-        <a th:href="@{/}">
-            <button class="button-action" type="button">В меню</button>
-        </a>
-        <a th:href="@{/sessions/add}">
-            <button class="button-add" type="button">Добавить</button>
-        </a>
-        <a th:href="@{/sessions/select(query = price_greater_200)}">
-            <button class="button-action" type="button">Показать сеансы с ценой выше 200</button>
-        </a>
-        <a th:href="@{/sessions/select(query = cinema_imperia)}">
-            <button class="button-action" type="button">Показать сеансы кинотеатра Империя</button>
+        <a th:href="@{/sessions/}">
+            <button class="button-action" type="button">Назад</button>
         </a>
         <div class="spacer"></div>
         <table class="view" th:if="${allSessions.iterator().hasNext()}">
@@ -34,8 +26,6 @@
                 <th>Дата</th>
                 <th>Время</th>
                 <th>Цена</th>
-                <th>Изменить</th>
-                <th>Удалить</th>
             </tr>
             <tr th:each="eSession : ${allSessions}">
                 <td th:text="${eSession.id}"></td>
@@ -45,12 +35,6 @@
                 <td th:text="${eSession.date}"></td>
                 <td th:text="${eSession.time}"></td>
                 <td th:text="${eSession.price}"></td>
-                <td><a th:href="@{/sessions/edit(id = ${eSession.id})}">
-                    <button class="button-action">Изменить</button>
-                </a></td>
-                <td><a th:href="@{/sessions/delete(id = ${eSession.id})}">
-                    <button class="button-delete">Удалить</button>
-                </a></td>
             </tr>
         </table>
     </div>

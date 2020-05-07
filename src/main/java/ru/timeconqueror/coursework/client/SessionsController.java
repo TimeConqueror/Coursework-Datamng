@@ -11,6 +11,7 @@ import ru.timeconqueror.coursework.service.HallService;
 import ru.timeconqueror.coursework.service.SessionService;
 
 import javax.validation.Valid;
+import java.util.Collections;
 import java.util.UUID;
 
 @Controller
@@ -90,5 +91,23 @@ public class SessionsController {
     public String delete(@RequestParam("id") UUID id) {
         sessionService.delete(sessionService.findById(id).get());//TODO add present check
         return "redirect:/sessions";
+    }
+
+    @GetMapping("/select")
+    public String select(@RequestParam("query") String price, Model model) {
+        Iterable<Session> allSessions = Collections.emptyList();
+        String title = "";
+        if (price.equals("price_greater_200")) {
+            allSessions = sessionService.findAllByPriceGreaterThan("200");
+            title = "с ценой выше 200";
+        } else if (price.equals("cinema_imperia")) {
+            allSessions = sessionService.findAllByCinemaName("Империя");
+            title = "кинотеатра Империя";
+        }
+
+        model.addAttribute("allSessions", allSessions);
+        model.addAttribute("title", title);
+
+        return "sessions/select";
     }
 }

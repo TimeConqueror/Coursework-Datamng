@@ -47,4 +47,14 @@ public class SessionService implements SimpleService<Session> {
     public void deleteAllByHallId(UUID hallID) {
         repo.deleteAllByHallId(hallID);
     }
+
+    @Transactional
+    public Iterable<Session> findAllByCinemaName(String cinemaName) {
+        return repo.findAllByCinemaName(cinemaName);
+    }
+
+    @Transactional
+    public Iterable<Session> findAllByPriceGreaterThan(String price) {
+        return repo.findAllByPriceGreaterThan(price);
+    }
 }
