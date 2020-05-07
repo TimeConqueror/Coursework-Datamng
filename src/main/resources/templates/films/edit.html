@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+<html lang="ru"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>
+        Изменить фильм
+    </title>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+    <link href="../../static/css/db.css" rel="stylesheet" th:href="@{/css/db.css}" type="text/css">
+    <style>
+        td * {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+<div id="main-wrapper">
+    <div id="content">
+        <h1 class="centered">Изменить фильм</h1>
+
+        <div class="centered" id="editor">
+            <a th:href="@{/films}">
+                <button class="button-action" type="button">Вернуться к списку фильмов</button>
+            </a>
+
+            <form action="#" enctype="multipart/form-data" method="post" th:action="@{/films/edit}" th:object="${film}">
+                <table class="full-width" style="text-align: left">
+                    <tr>
+                        <th><label>ID</label></th>
+                        <td><input readonly th:field="*{id}" type="text"></td>
+                    </tr>
+                    <tr>
+                        <th><label>Название</label></th>
+                        <td><input class="full-width" th:field="*{name}" type="text"></td>
+                        <td th:errors="*{name}" th:if="${#fields.hasErrors('name')}"></td>
+                    </tr>
+                    <tr>
+                        <th><label>Описание</label></th>
+                        <td><textarea style="width: 99%; height: 200px;" th:field="*{desc}"></textarea></td>
+                        <td th:errors="*{desc}" th:if="${#fields.hasErrors('desc')}"></td>
+                    </tr>
+                    <tr>
+                        <th><label>Возрастное ограничение</label></th>
+                        <td><input th:field="*{ageLimit}" type="text"></td>
+                        <td th:errors="*{ageLimit}" th:if="${#fields.hasErrors('ageLimit')}"></td>
+                    </tr>
+                    <tr>
+                        <th><label>Логотип</label></th>
+                        <td><input id="image" name="image" th:field="${fileContainer.fileData}" type="file"/></td>
+                        <!--                        <input th:field="*{logo}" type="hidden"/>-->
+
+                    </tr>
+                </table>
+                <button class="button-add" type="submit">Изменить</button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

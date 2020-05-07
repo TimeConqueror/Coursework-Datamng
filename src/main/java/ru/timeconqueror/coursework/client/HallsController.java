@@ -39,13 +39,13 @@ public class HallsController {
     public String initAdder(Model model) {
         model.addAttribute("hall", new Hall());
         model.addAttribute("allCinemas", cinemaService.findAll());
-        return "halls/one";
+        return "add";
     }
 
     @PostMapping(value = "/save")
     public String save(@ModelAttribute("hall") @Valid Hall hall, BindingResult result) {
         if (result.hasErrors()) {
-            return "halls/one";
+            return "add";
         }
 
         hallService.save(hall);
@@ -57,7 +57,7 @@ public class HallsController {
         Hall hall = hallService.findById(id).get();
         model.addAttribute("hall", hall);//TODO add present check
         model.addAttribute("allCinemas", cinemaService.findAll());
-        return "halls/one";
+        return "add";
     }
 
     @GetMapping("/delete")

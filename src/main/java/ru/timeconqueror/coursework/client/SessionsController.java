@@ -47,13 +47,13 @@ public class SessionsController {
         model.addAttribute("eSession", new Session());
         model.addAttribute("allHalls", hallService.findAll());
         model.addAttribute("allFilms", filmService.findAll());
-        return "sessions/one";
+        return "add";
     }
 
     @PostMapping(value = "/save")
     public String save(@ModelAttribute("eSession") @Valid Session session, BindingResult result) {
         if (result.hasErrors()) {
-            return "sessions/one";
+            return "add";
         }
 
         sessionService.save(session);
@@ -66,7 +66,7 @@ public class SessionsController {
         model.addAttribute("eSession", session);//TODO add present check
         model.addAttribute("allHalls", hallService.findAll());
         model.addAttribute("allFilms", filmService.findAll());
-        return "sessions/one";
+        return "add";
     }
 
     @GetMapping("/delete")

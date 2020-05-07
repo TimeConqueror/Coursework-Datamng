@@ -3,11 +3,8 @@
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title th:if="${film.name == null}">
+    <title>
         Добавить фильм
-    </title>
-    <title th:unless="${film.name == null}">
-        Изменить фильм
     </title>
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
     <link href="../../static/css/db.css" rel="stylesheet" th:href="@{/css/db.css}" type="text/css">
@@ -20,22 +17,15 @@
 <body>
 <div id="main-wrapper">
     <div id="content">
-        <div th:object="${film}">
-            <h1 class="centered" th:if="*{name==null}">Добавить фильм</h1>
-            <h1 class="centered" th:if="*{name!=null}">Изменить фильм</h1>
-        </div>
+        <h1 class="centered">Добавить фильм</h1>
 
         <div class="centered" id="editor">
             <a th:href="@{/films}">
                 <button class="button-action" type="button">Вернуться к списку фильмов</button>
             </a>
 
-            <form action="#" enctype="multipart/form-data" method="post" th:action="@{/films/save}" th:object="${film}">
+            <form action="#" enctype="multipart/form-data" method="post" th:action="@{/films/add}" th:object="${film}">
                 <table class="full-width" style="text-align: left">
-                    <tr th:if="*{name != null}">
-                        <th><label>ID</label></th>
-                        <td><input readonly th:field="*{id}" type="text"></td>
-                    </tr>
                     <tr>
                         <th><label>Название</label></th>
                         <td><input class="full-width" th:field="*{name}" type="text"></td>
@@ -57,10 +47,7 @@
                         <input th:field="*{logo}" type="hidden"/>
                     </tr>
                 </table>
-                <div th:object="${film}">
-                    <button class="button-add" th:if="*{name == null}" type="submit">Добавить</button>
-                    <button class="button-add" th:if="*{name != null}" type="submit">Изменить</button>
-                </div>
+                <button class="button-add" type="submit">Добавить</button>
             </form>
         </div>
     </div>

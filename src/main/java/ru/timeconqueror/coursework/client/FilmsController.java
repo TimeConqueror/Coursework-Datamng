@@ -15,6 +15,7 @@ import javax.validation.Valid;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Optional;
 import java.util.UUID;
 
 @Controller
@@ -38,17 +39,33 @@ public class FilmsController {
     public String initAdder(Model model) {
         model.addAttribute("film", new Film());
         model.addAttribute("fileContainer", new FileContainer());
-        return "films/one";
+        return "films/add";
     }
 
-    @PostMapping(value = "/save")
-    public String save(@ModelAttribute("film") @Valid Film film, BindingResult result, @ModelAttribute("fileContainer") FileContainer fileContainer) throws IOException {
+    @PostMapping(value = "/add")
+    public String add(@ModelAttribute("film") @Valid Film film, BindingResult result, @ModelAttribute("fileContainer") FileContainer fileContainer) throws IOException {
         if (result.hasErrors()) {
-            return "films/one";
+            return "films/add";
         }
 
+        return save(film, fileContainer);
+    }
+
+    @PostMapping(value = "/edit")
+    public String edit(@ModelAttribute("film") @Valid Film film, BindingResult result, @ModelAttribute("fileContainer") FileContainer fileContainer) throws IOException {
+        if (result.hasErrors()) {
+            return "films/edit";
+        }
+
+        return save(film, fileContainer);
+    }
+
+    public String save(Film film, FileContainer fileContainer) throws IOException {
         if (fileContainer.getFileData().getSize() > 0) {
             film.setLogo(fileContainer.getFileData().getBytes());
+        } else {
+            Optional<Film> filmOpt = filmService.findById(film.getId());
+            filmOpt.ifPresent(film1 -> film.setLogo(film1.getLogo()));
         }
 
         filmService.save(film);
@@ -60,7 +77,7 @@ public class FilmsController {
         Film film = filmService.findById(id).get();
         model.addAttribute("film", film);//TODO add present check
         model.addAttribute("fileContainer", new FileContainer());
-        return "films/one";
+        return "films/edit";
     }
 
     @GetMapping("/delete")
