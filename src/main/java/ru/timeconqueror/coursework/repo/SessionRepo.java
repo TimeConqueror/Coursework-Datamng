@@ -21,4 +21,8 @@ public interface SessionRepo extends CrudRepository<Session, UUID> {
             "LEFT JOIN Cinema c ON h.cinema = c.id " +
             "WHERE c.name = ?1")
     Iterable<Session> findAllByCinemaName(String name);
+
+    Iterable<Session> findAllByFilmId(UUID filmID);
+
+    Iterable<Session> findAllByHallId(UUID hallID);
 }

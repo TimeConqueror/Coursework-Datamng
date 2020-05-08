@@ -40,12 +40,22 @@ public class SessionService implements SimpleService<Session> {
 
     @Transactional
     public void deleteAllByFilmId(UUID filmID) {
-        repo.deleteAllByFilmId(filmID);
+        findAllByFilmId(filmID).forEach(this::delete);
+    }
+
+    @Transactional
+    public Iterable<Session> findAllByFilmId(UUID filmID) {
+        return repo.findAllByFilmId(filmID);
     }
 
     @Transactional
     public void deleteAllByHallId(UUID hallID) {
-        repo.deleteAllByHallId(hallID);
+        findAllByHallId(hallID).forEach(this::delete);
+    }
+
+    @Transactional
+    public Iterable<Session> findAllByHallId(UUID hallID) {
+        return repo.findAllByHallId(hallID);
     }
 
     @Transactional

@@ -8,5 +8,5 @@ import java.util.UUID;
 
 @Repository
 public interface HallRepo extends CrudRepository<Hall, UUID> {
-    void deleteAllByCinemaId(UUID cinemaId);
+    Iterable<Hall> findAllByCinemaId(UUID cinemaId);
 }

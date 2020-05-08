@@ -45,8 +45,12 @@ public class HallService implements SimpleService<Hall> {
         return repo.findAll();
     }
 
+    public Iterable<Hall> findAllByCinemaId(UUID cinemaId) {
+        return repo.findAllByCinemaId(cinemaId);
+    }
+
     @Transactional
     public void deleteAllByCinemaId(UUID cinemaID) {
-        repo.deleteAllByCinemaId(cinemaID);
+        findAllByCinemaId(cinemaID).forEach(this::delete);
     }
 }
